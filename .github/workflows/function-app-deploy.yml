@@ -1,0 +1,32 @@
+name: Azure Function App Deployment
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'  # Replace with the desired .NET Core version
+
+    - name: Build and publish Azure Function
+      run: |
+        cd path/to/your/function/app
+        dotnet publish --configuration Release --output publish
+        
+    - name: Deploy to Azure Function App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: functionapp0102  # Replace with your Azure Function App name
+        publish-profile: ${{ secrets.AZURE_FUNCTION_APP_PUBLISH_PROFILE }}
+        package: path/to/your/function/app/publish
+
