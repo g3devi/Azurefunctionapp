@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and publish Azure Function
       run: |
-        cd $GITHUB_WORKSPACE/Azurefunctionapp
+        cd ../Azurefunctionapp
         dotnet publish --configuration Release --output publish
         
     - name: Deploy to Azure Function App
@@ -28,5 +28,5 @@ jobs:
       with:
         app-name: functionapp0102  # Replace with your Azure Function App name
         publish-profile: ${{ secrets.AZURE_FUNCTION_APP_PUBLISH_PROFILE }}
-        package: Azurefunctionapp/publish
+        package: ../Azurefunctionapp/publish
 
