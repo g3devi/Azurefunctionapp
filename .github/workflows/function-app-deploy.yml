@@ -20,9 +20,7 @@ jobs:
 
     - name: Build and publish Azure Function
       run: echo "$GITHUB_REPOSITORY"
-           |
-           cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-           dotnet publish --configuration Release --output publish
+           
         
     - name: Deploy to Azure Function App
       uses: azure/webapps-deploy@v2
