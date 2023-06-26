@@ -19,7 +19,9 @@ jobs:
         node-version: '14'
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        npm install -g azure-functions-core-tools@3 --unsafe-perm true
+
 
     - name: Publish Azure Function
       run: |
