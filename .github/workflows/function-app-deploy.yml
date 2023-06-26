@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and publish Azure Function
       run: |
-        cd "/Azurefunctionapp"
+        cd "https://github.com/g3devi/Azurefunctionapp"
         dotnet publish --configuration Release --output publish
         
     - name: Deploy to Azure Function App
