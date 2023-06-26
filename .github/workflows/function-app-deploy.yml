@@ -20,7 +20,9 @@ jobs:
 
     - name: Build and publish Azure Function
       run: |
-           cd 'Azurefunctionapp'
+           publishfolder="${{ github.workspace }}/output"
+           mkdir $publishfolder
+           cd $publishfolder
            dotnet publish --configuration Release --output publish
         
     - name: Deploy to Azure Function App
