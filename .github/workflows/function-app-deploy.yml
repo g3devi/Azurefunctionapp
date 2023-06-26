@@ -20,7 +20,7 @@ jobs:
 
     - name: Build and publish Azure Function
       run: |
-        cd '.'
+        cd https://portal.azure.com/?sid=035fa80a-d121-4528-864a-268e52b121e6#@ACP202130.onmicrosoft.com/resource/subscriptions/61fc7a8e-363a-4dce-849e-5b13de154857/resourcegroups/CICDtestingGaya3/providers/Microsoft.Web/sites/functionapp0102/vstscd
         dotnet publish --configuration Release --output publish
         
     - name: Deploy to Azure Function App
