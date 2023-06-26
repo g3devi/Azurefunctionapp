@@ -1,34 +1,27 @@
-name: Azure Function App Deployment
+name: Deploy Azure Function
 
 on:
   push:
     branches:
-      - main  # Replace with your branch name
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        dotnet-version: '5.0.x'  # Replace with the desired .NET Core version
+        node-version: '14'
 
-    - name: Build and publish Azure Function
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Publish Azure Function
       run: |
-           publishfolder="${{ github.workspace }}/output"
-           mkdir $publishfolder
-           cd $publishfolder
-           dotnet publish --configuration Release --output publish
-        
-    - name: Deploy to Azure Function App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: functionapp0102  # Replace with your Azure Function App name
-        publish-profile: ${{ secrets.AZURE_FUNCTION_APP_PUBLISH_PROFILE }}
-        package: $GITHUB_REPOSITORY/
-
+        az login --service-principal --username ${{ secrets.AZURE_CLIENT_ID }} --password ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+        func azure functionapp publish functionapp0102 --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
